@@ -1,11 +1,73 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Header from '../components/header/Header.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<Header />
+	<main>
+		<div class="welcome-text">
+			<p class="subheading">BOOKING · CONFIRMED</p>
+			<h1>Bienvenue, <span>Lucia.</span></h1>
+		</div>
+		<div class="main-buttons">
+			<button class="print-receipt">Print Receipt</button>
+			<button class="add-to-calendar">
+				Add to Calendar
+			</button>
+		</div>
+	</main>
 </Layout>
+
+<style lang="scss">
+  main {
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 80px);
+	padding: 1.5rem 1rem;
+	font-family: var(--font-sans);
+
+	.welcome-text {
+		.subheading {
+		  font-size: 1rem;
+		  font-weight: 500;
+		  font-family: var(--font-mono);
+		  color: var(--neutral-600);
+		}
+		h1 {
+			font-size: 3rem;
+			font-weight: 400;
+			margin-top: 0.5rem;
+			font-family: var(--font-serif);
+			span {
+				color: var(--terracotta-500);
+				font-style: italic;
+			}
+		}
+	}
+
+	.main-buttons {
+		display: flex;
+		gap: 1rem;
+		margin-top: 1rem;
+		button {
+			padding: 0.75rem 2rem;
+			border-radius: 50px;
+			font-size: 1rem;
+			font-weight: 600;
+			border-width: 2px;
+			border-style: solid;
+		}
+
+		.print-receipt {
+			color: var(--neutral-700);
+			border-color: var(--neutral-200);
+		}
+
+		.add-to-calendar {
+			background-color: var(--neutral-900);
+			color: var(--neutral-100);
+		}
+	}
+}
+</style>

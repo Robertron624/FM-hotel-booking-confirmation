@@ -1,0 +1,36 @@
+<header>
+  <a href="/" class="logo-container">
+    <img src="/images/logo.svg" alt="Logo" class="logo" />
+  </a>
+  <button class="mobile-menu-trigger">
+    <img src="/images/icon-menu.svg" alt="Mobile Menu" />
+  </button>
+</header>
+
+<style lang="scss">
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: var(--neutral-100);
+    border-bottom: 1px solid var(--neutral-400);
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      .logo {
+        height: 40px;
+      }
+    }
+
+    .mobile-menu-trigger {
+        border: 2px solid var(--neutral-200);
+        border-radius: 6px;
+        padding: 0.45rem;
+      img {
+        height: 24px;
+      }
+    }
+  }
+</style>
