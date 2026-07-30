@@ -1,0 +1,368 @@
+<div class="mobile-menu-overlay" data-mobile-menu-overlay>
+	<aside
+		id="mobile-menu-panel"
+		class="mobile-menu-panel"
+		role="dialog"
+		aria-modal="true"
+		aria-label="Mobile navigation menu"
+	>
+		<div class="menu-top-row">
+			<a href="/" class="menu-logo-link" aria-label="Go to home">
+				<img src="/images/logo.svg" alt="Maison Soleil" class="menu-logo" />
+			</a>
+
+			<button class="menu-close-button" type="button" data-mobile-menu-close aria-label="Close menu">
+				<img src="/images/icon-close.svg" alt="" aria-hidden="true" />
+			</button>
+		</div>
+
+		<hr class="menu-divider" />
+
+		<nav aria-label="Mobile menu">
+			<ul class="menu-list">
+				<li>
+					<a href="/your-stay" class="menu-item is-active">
+						<span class="menu-item-left">
+							<img src="/images/icon-bed.svg" alt="" aria-hidden="true" />
+							<span>Your stay</span>
+						</span>
+						<span class="menu-badge">1</span>
+					</a>
+				</li>
+				<li>
+					<a href="/the-house" class="menu-item">
+						<span class="menu-item-left">
+							<img src="/images/icon-house.svg" alt="" aria-hidden="true" />
+							<span>The house</span>
+						</span>
+					</a>
+				</li>
+				<li>
+					<a href="/around-town" class="menu-item">
+						<span class="menu-item-left">
+							<img src="/images/icon-pin.svg" alt="" aria-hidden="true" />
+							<span>Around town</span>
+						</span>
+					</a>
+				</li>
+				<li>
+					<a href="/breakfast" class="menu-item">
+						<span class="menu-item-left">
+							<img src="/images/icon-breakfast-outline.svg" alt="" aria-hidden="true" />
+							<span>Breakfast</span>
+						</span>
+					</a>
+				</li>
+				<li>
+					<a href="/messages" class="menu-item">
+						<span class="menu-item-left">
+							<img src="/images/icon-mail.svg" alt="" aria-hidden="true" />
+							<span>Messages</span>
+						</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+
+		<section class="weather-card" aria-label="Today weather in Cassis">
+			<p class="weather-caption">TODAY IN CASSIS</p>
+			<p class="weather-temp">27&deg;</p>
+			<p class="weather-detail">Sunny · light breeze</p>
+			<span class="weather-sun" aria-hidden="true"></span>
+		</section>
+
+		<hr class="menu-divider menu-divider-bottom" />
+
+		<footer class="menu-footer">
+			<p>EST. 1987</p>
+			<p>MAISON SOLEIL · 12 RUE DES OLIVIERS · CASSIS</p>
+			<p>&copy; 2026 MAISON SOLEIL</p>
+		</footer>
+	</aside>
+</div>
+
+<script>
+	if (document.body.dataset.mobileMenuInitialized !== "true") {
+		document.body.dataset.mobileMenuInitialized = "true";
+
+		const overlay = document.querySelector("[data-mobile-menu-overlay]");
+		const panel = document.querySelector("#mobile-menu-panel");
+		const closeButton = document.querySelector("[data-mobile-menu-close]");
+		const trigger = document.querySelector("[data-mobile-menu-open]");
+		const closeDurationMs = 300;
+
+		if (overlay && panel && closeButton && trigger) {
+			let closeFallbackTimeout: ReturnType<typeof window.setTimeout> | null = null;
+
+			const openMenu = () => {
+				overlay.classList.add("is-visible");
+				requestAnimationFrame(() => {
+					overlay.classList.add("is-open");
+				});
+				trigger.setAttribute("aria-expanded", "true");
+				document.body.style.overflow = "hidden";
+			};
+
+			const closeMenu = () => {
+				if (!overlay.classList.contains("is-open")) {
+					return;
+				}
+
+				overlay.classList.remove("is-open");
+				trigger.setAttribute("aria-expanded", "false");
+
+				if (closeFallbackTimeout) {
+					clearTimeout(closeFallbackTimeout);
+				}
+
+				closeFallbackTimeout = window.setTimeout(() => {
+					overlay.classList.remove("is-visible");
+					document.body.style.overflow = "";
+					closeFallbackTimeout = null;
+				}, closeDurationMs + 40);
+			};
+
+			panel.addEventListener("transitionend", (event) => {
+				const transitionEvent = event as TransitionEvent;
+
+				if (transitionEvent.propertyName !== "transform") {
+					return;
+				}
+
+				if (!overlay.classList.contains("is-open")) {
+					overlay.classList.remove("is-visible");
+					document.body.style.overflow = "";
+
+					if (closeFallbackTimeout) {
+						clearTimeout(closeFallbackTimeout);
+						closeFallbackTimeout = null;
+					}
+				}
+			});
+
+			trigger.addEventListener("click", openMenu);
+			closeButton.addEventListener("click", closeMenu);
+
+			overlay.addEventListener("click", (event) => {
+				if (event.target === overlay) {
+					closeMenu();
+				}
+			});
+
+			document.addEventListener("keydown", (event) => {
+				if (event.key === "Escape" && overlay.classList.contains("is-open")) {
+					closeMenu();
+				}
+			});
+		}
+	}
+</script>
+
+<style lang="scss">
+	.mobile-menu-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		display: flex;
+		justify-content: flex-end;
+		background: hsla(33, 15%, 15%, 0.16);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transition: opacity 240ms ease;
+	}
+
+	.mobile-menu-overlay.is-visible {
+		visibility: visible;
+		pointer-events: auto;
+	}
+
+	.mobile-menu-overlay.is-open {
+		opacity: 1;
+	}
+
+	.mobile-menu-panel {
+		width: min(100%, 24rem);
+		height: 100dvh;
+		background: var(--neutral-50);
+		border-left: 1px solid var(--neutral-200);
+		padding: 1rem;
+		padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+		display: flex;
+		flex-direction: column;
+		transform: translateX(100%);
+		transition: transform 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+		overflow-y: auto;
+	}
+
+	.mobile-menu-overlay.is-open .mobile-menu-panel {
+		transform: translateX(0);
+	}
+
+	.menu-top-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.menu-logo-link {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.menu-logo {
+		width: 100px;
+		height: auto;
+	}
+
+	.menu-close-button {
+		width: 2.5rem;
+		height: 2.5rem;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--neutral-400);
+		border-radius: 8px;
+		color: var(--neutral-700);
+		background: var(--neutral-0);
+		transition: border-color 160ms ease;
+
+		img {
+			width: 1.125rem;
+			height: 1.125rem;
+		}
+	}
+
+	.menu-close-button:hover {
+		border-color: var(--neutral-600);
+	}
+
+	.menu-divider {
+		border: 0;
+		border-top: 1px solid var(--neutral-200);
+		margin: 0.9rem 0 0.8rem;
+	}
+
+	.menu-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.menu-item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.62rem 0.75rem;
+		border-radius: 12px;
+		color: var(--neutral-700);
+		font-size: 1.625rem;
+		line-height: 1;
+		font-family: var(--font-serif);
+		transition: background-color 160ms ease;
+	}
+
+	.menu-item:hover {
+		background: var(--neutral-100);
+	}
+
+	.menu-item-left {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+
+		img {
+			width: 1.2rem;
+			height: 1.2rem;
+			opacity: 0.9;
+		}
+
+        span {
+            font-size: 1rem;
+            font-family: var(--font-sans);
+        }
+	}
+
+	.menu-item.is-active {
+		background: var(--neutral-0);
+		box-shadow: 0 1px 0 var(--neutral-200) inset;
+	}
+
+	.menu-badge {
+		min-width: 1.2rem;
+		height: 1.2rem;
+		padding: 0 0.2rem;
+		border-radius: 999px;
+		background: var(--terracotta-600);
+		color: var(--neutral-0);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 0.75rem;
+		font-family: var(--font-mono);
+		line-height: 1;
+	}
+
+	.weather-card {
+		position: relative;
+		overflow: hidden;
+		border-radius: 1rem;
+		background: var(--sun-200);
+		padding: 0.95rem 1rem;
+		color: var(--neutral-900);
+		margin-top: auto;
+	}
+
+	.weather-caption {
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		letter-spacing: 0.12em;
+		color: var(--neutral-700);
+	}
+
+	.weather-temp {
+		margin-top: 0.3rem;
+		font-family: var(--font-serif);
+		font-size: 3.25rem;
+		line-height: 0.95;
+	}
+
+	.weather-detail {
+		margin-top: 0.2rem;
+		font-size: 1.1rem;
+		color: var(--neutral-700);
+		font-family: var(--font-sans);
+	}
+
+	.weather-sun {
+		position: absolute;
+		top: -0.7rem;
+		right: -0.8rem;
+		width: 4.8rem;
+		height: 4.8rem;
+		border-radius: 50%;
+		background: radial-gradient(circle at 30% 30%, var(--sun-300), var(--sun-500));
+		opacity: 0.85;
+	}
+
+	.menu-divider-bottom {
+		margin-top: 1rem;
+		border-top-style: dashed;
+	}
+
+	.menu-footer {
+		margin-top: 0.9rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+
+		p {
+			font-size: 0.83rem;
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+			color: var(--neutral-600);
+			font-family: var(--font-mono);
+		}
+	}
+</style>

@@ -1,11 +1,24 @@
+---
+import MobileMenu from "./MobileMenu.astro";
+---
+
 <header>
   <a href="/" class="logo-container">
     <img src="/images/logo.svg" alt="Logo" class="logo" />
   </a>
-  <button class="mobile-menu-trigger">
+  <button
+    class="mobile-menu-trigger"
+    type="button"
+    aria-controls="mobile-menu-panel"
+    aria-expanded="false"
+    aria-label="Open mobile menu"
+    data-mobile-menu-open
+  >
     <img src="/images/icon-menu.svg" alt="Mobile Menu" />
   </button>
 </header>
+
+<MobileMenu />
 
 <style lang="scss">
   header {
