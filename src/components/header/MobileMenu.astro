@@ -71,7 +71,7 @@
                     <p class="weather-caption">TODAY IN CASSIS</p>
                     <p class="weather-temp">27&deg;</p>
                     <p class="weather-detail">Sunny · light breeze</p>
-                    <span class="weather-sun" aria-hidden="true"></span>
+                    <img src="/images/icon-weather.svg" class="weather-sun" aria-hidden="true" />
                 </section>
         
                 <hr class="menu-divider menu-divider-bottom" />
@@ -366,13 +366,10 @@
 
 	.weather-sun {
 		position: absolute;
-		top: -0.7rem;
+		top: -1.6rem;
 		right: -0.8rem;
 		width: 4.8rem;
 		height: 4.8rem;
-		border-radius: 50%;
-		background: radial-gradient(circle at 30% 30%, var(--sun-300), var(--sun-500));
-		opacity: 0.85;
 	}
 
 	.menu-divider-bottom {
