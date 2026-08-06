@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/header/Header.astro';
 import WelcomeCard from '../components/WelcomeCard.astro';
 import Receipt from '../components/Receipt.astro';
+import AmenitiesCard from '../components/AmenitiesCard.astro';
+import { amenitiesData } from '../amenitiesData';
 ---
 
 <Layout>
@@ -20,6 +22,11 @@ import Receipt from '../components/Receipt.astro';
 		</div>
 		<WelcomeCard />
 		<Receipt />
+		<section class="amenities-list" aria-label="Amenities and stay details">
+			{amenitiesData.map((amenity) => (
+				<AmenitiesCard {...amenity} />
+			))}
+		</section>
 	</main>
 </Layout>
 
@@ -73,6 +80,12 @@ import Receipt from '../components/Receipt.astro';
 			background-color: var(--neutral-900);
 			color: var(--neutral-100);
 		}
+	}
+
+	.amenities-list {
+		display: grid;
+		gap: 1rem;
+		margin-top: 1.5rem;
 	}
 }
 </style>

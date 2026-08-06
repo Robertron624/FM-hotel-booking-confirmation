@@ -1,0 +1,210 @@
+---
+
+import type { Props } from "../types";
+
+const {
+	title,
+	number,
+	icon,
+    iconBackgroundAccent,
+	header,
+	subheader,
+	descriptionType,
+	description = "",
+	list = [],
+} = Astro.props;
+
+const isListDescription = descriptionType === "list";
+const accentColor = `var(--${iconBackgroundAccent})`;
+---
+
+<article class="amenities-card" aria-label={title} style={`--amenity-accent: ${accentColor};`}>
+	<header class="amenities-card__header">
+		<div class="amenities-card__meta">
+			<div class="amenities-card__icon-wrap" aria-hidden="true">
+				<img src={icon} alt="" class="amenities-card__icon" />
+			</div>
+			<p class="amenities-card__kicker">{title}</p>
+		</div>
+		<p class="amenities-card__number">{number}</p>
+	</header>
+
+	<h3 class="amenities-card__title">{header}</h3>
+
+	{subheader && <p class="amenities-card__subheader">{subheader}</p>}
+
+	{
+		isListDescription ? (
+			<ul class="amenities-card__list" aria-label={`${title} details`}>
+				{list.map((item) => (
+					<li class="amenities-card__list-row">
+						<span class="amenities-card__list-label">{item.label}</span>
+						<span class="amenities-card__list-value-wrap">
+							<span class="amenities-card__list-value">{item.value}</span>
+							{item.actionText && (
+								<span class="amenities-card__list-action">{item.actionText}</span>
+							)}
+						</span>
+					</li>
+				))}
+			</ul>
+		) : (
+			<p class="amenities-card__description">{description}</p>
+		)
+	}
+</article>
+
+<style lang="scss">
+	.amenities-card {
+		background-color: var(--neutral-0);
+		border: 1px solid var(--neutral-200);
+		border-radius: 0.95rem;
+		padding: 1rem;
+		color: var(--neutral-800);
+		box-shadow:
+			0 1px 1px hsla(24, 22%, 24%, 0.06),
+			0 8px 24px hsla(24, 24%, 24%, 0.12);
+	}
+
+	.amenities-card__header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.amenities-card__meta {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		min-width: 0;
+	}
+
+	.amenities-card__icon-wrap {
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: 0.45rem;
+		background: var(--amenity-accent);
+		display: grid;
+		place-items: center;
+		flex-shrink: 0;
+	}
+
+	.amenities-card__icon {
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+
+	.amenities-card__kicker {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		letter-spacing: 0.22em;
+		color: var(--amenity-accent);
+		text-transform: uppercase;
+	}
+
+	.amenities-card__number {
+		font-family: var(--font-serif);
+		font-size: 2rem;
+		line-height: 1;
+		color: var(--amenity-accent);
+	}
+
+	.amenities-card__title {
+		margin-top: 1.25rem;
+		font-family: var(--font-serif);
+		font-size: clamp(1.5rem, 4vw, 2.4rem);
+		line-height: 1.08;
+		font-weight: 420;
+		color: var(--neutral-900);
+	}
+
+	.amenities-card__subheader {
+		margin-top: 0.55rem;
+		font-family: var(--font-sans);
+		font-size: .75rem;
+		color: var(--neutral-500);
+        opacity: 0.7;
+        font-weight: 500;
+	}
+
+	.amenities-card__description {
+		margin-top: 1rem;
+		max-width: 34ch;
+		font-size: 1rem;
+		line-height: 1.42;
+		color: var(--neutral-700);
+	}
+
+	.amenities-card__list {
+		margin-top: 0.9rem;
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.amenities-card__list-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.7rem;
+		border: 1px solid var(--neutral-200);
+		border-radius: 0.55rem;
+		background: var(--neutral-50);
+		padding: 0.48rem 0.7rem;
+	}
+
+	.amenities-card__list-label {
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		font-size: 0.73rem;
+		letter-spacing: 0.2em;
+		color: var(--neutral-600);
+        opacity: 0.8;
+	}
+
+	.amenities-card__list-value-wrap {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		min-width: 0;
+	}
+
+	.amenities-card__list-value {
+		font-size: 0.96rem;
+		color: var(--neutral-700);
+		white-space: nowrap;
+	}
+
+	.amenities-card__list-action {
+		font-family: var(--font-mono);
+		text-transform: uppercase;
+		font-size: 0.62rem;
+		letter-spacing: 0.14em;
+		color: var(--neutral-600);
+		border: 1px solid var(--neutral-200);
+		border-radius: 999px;
+		background: var(--neutral-100);
+		padding: 0.2rem 0.42rem;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 420px) {
+		.amenities-card {
+			padding: 0.9rem;
+		}
+
+		.amenities-card__title {
+			font-size: clamp(1.6rem, 7vw, 2rem);
+		}
+
+		.amenities-card__subheader,
+		.amenities-card__description {
+			font-size: 0.95rem;
+		}
+
+		.amenities-card__number {
+			font-size: 1.8rem;
+		}
+	}
+</style>
+
