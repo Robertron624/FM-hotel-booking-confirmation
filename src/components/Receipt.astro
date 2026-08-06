@@ -1,0 +1,244 @@
+<article class="receipt" aria-label="Booking receipt">
+  <div class="receipt-glow" aria-hidden="true"></div>
+
+  <div class="receipt-head">
+    <div class="kicker-and-id">
+      <p class="receipt-kicker">RECEIPT</p>
+      <p class="receipt-id">
+        <span>Nº MS-2026</span>
+        <span>0421-AH</span>
+      </p>
+    </div>
+    <h2>Your stay</h2>
+  </div>
+
+  <section class="stay-summary" aria-label="Stay summary">
+    <div class="stay-grid">
+      <div class="stay-col">
+        <p class="label">CHECK IN</p>
+        <p class="date">25 Apr</p>
+        <p class="meta">Saturday · 15:00</p>
+      </div>
+      <div class="stay-col">
+        <p class="label">CHECK OUT</p>
+        <p class="date">29 Apr</p>
+        <p class="meta">Wednesday · 11:00</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="line-items" aria-label="Line items">
+    <div class="item-row">
+      <p>Room · La Garrigue × 4 nights</p>
+      <p>€ 620.00</p>
+    </div>
+    <div class="item-row">
+      <p>Breakfast × 2 guests</p>
+      <p>€ 96.00</p>
+    </div>
+    <div class="item-row">
+      <p>Tourist tax</p>
+      <p>€ 14.40</p>
+    </div>
+  </section>
+
+  <footer class="receipt-footer">
+    <div class="total-row">
+      <p class="label">TOTAL PAID</p>
+      <p class="total">€ 730.40</p>
+    </div>
+
+    <div class="receipt-end">
+      <p class="paid-meta">PAID · WISE · GBP</p>
+      <div class="barcode" aria-hidden="true">
+        <img src="/images/icon-barcode.svg" alt="Barcode" srcset="">
+      </div>
+    </div>
+  </footer>
+</article>
+
+<style lang="scss">
+  .receipt {
+    position: relative;
+    margin-top: 2.25rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: min(100%, 22rem);
+    padding: 1.2rem 1.05rem 1rem;
+    border-radius: 1.1rem;
+    border: 1px solid hsl(30, 24%, 91%);
+    background: var(--neutral-0);
+    box-shadow: 0 14px 38px hsla(20, 35%, 22%, 0.12);
+    color: var(--neutral-800);
+    overflow: hidden;
+    transform: rotate(-2deg);
+  }
+
+  .receipt-glow {
+    position: absolute;
+    top: -1.8rem;
+    left: -8%;
+    width: 116%;
+    height: 3.6rem;
+    background: radial-gradient(
+      68% 80% at 50% 5%,
+      hsla(23, 79%, 62%, 0.4) 0%,
+      hsla(23, 79%, 62%, 0.16) 44%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  .receipt-head {
+    position: relative;
+    z-index: 1;
+
+    .kicker-and-id {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.2rem;
+
+      .receipt-kicker {
+        font-family: var(--font-mono);
+        font-size: 0.73rem;
+        letter-spacing: 0.2em;
+        color: var(--neutral-600);
+      }
+
+      .receipt-id {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.2rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: var(--neutral-600);
+      }
+    }
+  }
+
+  .stay-summary {
+    border-top: 1px dashed var(--neutral-200);
+    border-bottom: 1px dashed var(--neutral-200);
+    padding: 0.65rem 0 0.95rem;
+
+    h2 {
+      margin-bottom: 1rem;
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 420;
+      letter-spacing: 0.005em;
+      color: var(--neutral-800);
+    }
+  }
+
+  .stay-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    color: var(--neutral-600);
+  }
+
+  .date {
+    margin-top: 0.45rem;
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    line-height: 0.95;
+    font-weight: 430;
+    letter-spacing: -0.012em;
+    color: var(--neutral-800);
+  }
+
+  .meta {
+    margin-top: 0.35rem;
+    font-size: 1rem;
+    color: var(--neutral-700);
+    letter-spacing: 0.005em;
+  }
+
+  .line-items {
+    padding: 0.95rem 0 1rem;
+    border-bottom: 1px solid hsl(33, 17%, 78%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .item-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 1rem;
+    color: var(--neutral-700);
+
+    p:last-child {
+      font-family: var(--font-mono);
+      color: var(--neutral-800);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+  }
+
+  .receipt-footer {
+    padding-top: 0.8rem;
+  }
+
+  .total-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .total {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    line-height: 1;
+    font-weight: 450;
+    color: var(--neutral-900);
+  }
+
+  .receipt-end {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 0.8rem;
+  }
+
+  .paid-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    color: var(--neutral-600);
+    white-space: nowrap;
+  }
+
+  .barcode {
+  display: block;
+  }
+
+  @media (max-width: 390px) {
+    .date {
+      font-size: 2.5rem;
+    }
+
+    .meta,
+    .item-row {
+      font-size: 0.92rem;
+    }
+
+    .total {
+      font-size: 2.2rem;
+    }
+  }
+</style>
