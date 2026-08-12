@@ -1,0 +1,240 @@
+<aside class="desktop-sidebar" aria-label="Primary navigation">
+  <div class="desktop-sidebar__top">
+    <a href="/" class="desktop-sidebar__logo-link" aria-label="Go to home">
+      <img src="/images/logo.svg" alt="Maison Soleil" class="desktop-sidebar__logo" />
+    </a>
+
+    <hr class="desktop-sidebar__divider" />
+
+    <nav aria-label="Desktop menu">
+      <ul class="desktop-sidebar__menu-list">
+        <li>
+          <a href="/your-stay" class="desktop-sidebar__menu-item is-active">
+            <span class="desktop-sidebar__menu-item-left">
+              <img src="/images/icon-bed.svg" alt="" aria-hidden="true" />
+              <span>Your stay</span>
+            </span>
+            <span class="desktop-sidebar__menu-badge">1</span>
+          </a>
+        </li>
+        <li>
+          <a href="/the-house" class="desktop-sidebar__menu-item">
+            <span class="desktop-sidebar__menu-item-left">
+              <img src="/images/icon-house.svg" alt="" aria-hidden="true" />
+              <span>The house</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="/around-town" class="desktop-sidebar__menu-item">
+            <span class="desktop-sidebar__menu-item-left">
+              <img src="/images/icon-pin.svg" alt="" aria-hidden="true" />
+              <span>Around town</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="/breakfast" class="desktop-sidebar__menu-item">
+            <span class="desktop-sidebar__menu-item-left">
+              <img src="/images/icon-breakfast-outline.svg" alt="" aria-hidden="true" />
+              <span>Breakfast</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="/messages" class="desktop-sidebar__menu-item">
+            <span class="desktop-sidebar__menu-item-left">
+              <img src="/images/icon-mail.svg" alt="" aria-hidden="true" />
+              <span>Messages</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="desktop-sidebar__bottom">
+    <section class="desktop-sidebar__weather-card" aria-label="Today weather in Cassis">
+      <p class="desktop-sidebar__weather-caption">TODAY IN CASSIS</p>
+      <p class="desktop-sidebar__weather-temp">27&deg;</p>
+      <p class="desktop-sidebar__weather-detail">Sunny · light breeze</p>
+      <img src="/images/icon-weather.svg" class="desktop-sidebar__weather-sun" alt="" aria-hidden="true" />
+    </section>
+
+    <hr class="desktop-sidebar__divider desktop-sidebar__divider-bottom" />
+
+    <footer class="desktop-sidebar__footer">
+      <p>EST. 1987</p>
+      <p>MAISON SOLEIL · 12 RUE DES OLIVIERS · CASSIS</p>
+      <p>&copy; 2026 MAISON SOLEIL</p>
+    </footer>
+  </div>
+</aside>
+
+<style lang="scss">
+  @use "../../styles/breakpoints" as bp;
+
+  .desktop-sidebar {
+    display: none;
+  }
+
+  @include bp.desktop {
+    .desktop-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 45;
+      width: 18rem;
+      height: 100vh;
+      height: 100svh;
+      border-right: 1px solid var(--neutral-400);
+      background: var(--neutral-100);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem 0.7rem 0.9rem;
+      box-sizing: border-box;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .desktop-sidebar__top {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .desktop-sidebar__logo-link {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+    }
+
+    .desktop-sidebar__logo {
+      width: 76px;
+      height: auto;
+    }
+
+    .desktop-sidebar__divider {
+      border: 0;
+      border-top: 1px solid var(--neutral-200);
+      margin: 0;
+    }
+
+    .desktop-sidebar__menu-list {
+      display: grid;
+      gap: 0.28rem;
+    }
+
+    .desktop-sidebar__menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.45rem;
+      border-radius: 0.5rem;
+      padding: 0.48rem 0.45rem;
+      color: var(--neutral-700);
+      transition: background-color 160ms ease;
+    }
+
+    .desktop-sidebar__menu-item:hover {
+      background: var(--neutral-0);
+    }
+
+    .desktop-sidebar__menu-item.is-active {
+      background: var(--neutral-0);
+      box-shadow: 0 1px 0 var(--neutral-200) inset;
+    }
+
+    .desktop-sidebar__menu-item-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.44rem;
+
+      img {
+        width: 0.92rem;
+        height: 0.92rem;
+      }
+
+      span {
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+      }
+    }
+
+    .desktop-sidebar__menu-badge {
+      min-width: 1rem;
+      height: 1rem;
+      border-radius: 999px;
+      background: var(--terracotta-600);
+      color: var(--neutral-0);
+      font-size: 0.63rem;
+      font-family: var(--font-mono);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.16rem;
+      line-height: 1;
+    }
+
+    .desktop-sidebar__bottom {
+      display: grid;
+      gap: 0.72rem;
+    }
+
+    .desktop-sidebar__weather-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.85rem;
+      background: var(--sun-200);
+      padding: 0.6rem 0.75rem;
+      color: var(--neutral-900);
+    }
+
+    .desktop-sidebar__weather-caption {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      color: var(--neutral-700);
+    }
+
+    .desktop-sidebar__weather-temp {
+      margin-top: 0.48rem;
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      line-height: 0.95;
+    }
+
+    .desktop-sidebar__weather-detail {
+      margin-top: 0.2rem;
+      font-size: 0.68rem;
+      color: var(--neutral-700);
+      font-family: var(--font-sans);
+    }
+
+    .desktop-sidebar__weather-sun {
+      position: absolute;
+      top: -1.15rem;
+      right: -0.58rem;
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+
+    .desktop-sidebar__divider-bottom {
+      border-top-style: dashed;
+    }
+
+    .desktop-sidebar__footer {
+      display: grid;
+      gap: 0.32rem;
+
+      p {
+        font-size: 0.54rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--neutral-600);
+        font-family: var(--font-mono);
+      }
+    }
+  }
+</style>

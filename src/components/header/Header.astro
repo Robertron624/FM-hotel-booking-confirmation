@@ -1,4 +1,5 @@
 ---
+import DesktopSidebar from "./DesktopSidebar.astro";
 import MobileMenu from "./MobileMenu.astro";
 ---
 
@@ -19,8 +20,11 @@ import MobileMenu from "./MobileMenu.astro";
 </header>
 
 <MobileMenu />
+<DesktopSidebar />
 
 <style lang="scss">
+  @use "../../styles/breakpoints" as bp;
+
   header {
     position: sticky;
     top: 0;
@@ -47,6 +51,18 @@ import MobileMenu from "./MobileMenu.astro";
       img {
         height: 24px;
       }
+    }
+  }
+
+  @include bp.desktop {
+    header {
+      display: none;
+    }
+
+    :global(main) {
+      margin-left: 12rem;
+      width: calc(100% - 12rem);
+      box-sizing: border-box;
     }
   }
 </style>

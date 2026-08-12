@@ -22,6 +22,8 @@
 </article>
 
 <style lang="scss">
+
+  @use "../styles/breakpoints" as bp;
   .welcome-card {
     position: relative;
     margin-top: 4.5rem;
@@ -38,6 +40,15 @@
 
     // Box shadow using terracotta color to create a subtle glow effect
     box-shadow: 0 0 8px var(--terracotta-500);
+
+    @include bp.desktop {
+      flex: 1;
+      margin-top: 0px;
+      order: 2;
+      margin-left: -1rem;
+      transform: rotate(3.6deg);
+      margin-left: -0.5rem;
+    }
   }
 
   .card-topline {

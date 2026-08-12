@@ -1,91 +1,150 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/header/Header.astro';
-import WelcomeCard from '../components/WelcomeCard.astro';
-import Receipt from '../components/Receipt.astro';
-import AmenitiesCard from '../components/AmenitiesCard.astro';
-import { amenitiesData } from '../amenitiesData';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/header/Header.astro";
+import WelcomeCard from "../components/WelcomeCard.astro";
+import Receipt from "../components/Receipt.astro";
+import AmenitiesCard from "../components/AmenitiesCard.astro";
+import { amenitiesData } from "../amenitiesData";
 ---
 
 <Layout>
-	<Header />
-	<main>
-		<div class="welcome-text">
-			<p class="subheading">BOOKING · CONFIRMED</p>
-			<h1>Bienvenue, <span>Lucia.</span></h1>
+  <Header />
+  <main>
+    <div class="welcome-text">
+      <p class="subheading">BOOKING · CONFIRMED</p>
+      <h1>Bienvenue, <span>Lucia.</span></h1>
+    </div>
+    <div class="main-buttons">
+      <button class="print-receipt">Print Receipt</button>
+      <button class="add-to-calendar"> Add to Calendar </button>
+    </div>
+    <div class="welcome-and-receipt">
+		<div class="cards">
+			<WelcomeCard />
+			<Receipt />
 		</div>
-		<div class="main-buttons">
-			<button class="print-receipt">Print Receipt</button>
-			<button class="add-to-calendar">
-				Add to Calendar
-			</button>
-		</div>
-		<WelcomeCard />
-		<Receipt />
-		<section class="amenities-list" aria-label="Amenities and stay details">
-			{amenitiesData.map((amenity) => (
-				<AmenitiesCard {...amenity} />
-			))}
-		</section>
-	</main>
+      <p class="hover-message">
+        <img src="/images/icon-sparkle.svg" alt="" />
+		   <span>
+				HOVER TO FAN
+		   </span>
+        <img src="/images/icon-sparkle.svg" alt="" />
+      </p>
+    </div>
+    <section class="amenities-list" aria-label="Amenities and stay details">
+      {amenitiesData.map((amenity) => <AmenitiesCard {...amenity} />)}
+    </section>
+  </main>
 </Layout>
 
 <style lang="scss">
-  main {
-	display: flex;
-	flex-direction: column;
-	min-height: calc(100vh - 80px);
-	padding: 1.5rem 1rem;
-	font-family: var(--font-sans);
+  @use "../styles/breakpoints" as bp;
 
-	.welcome-text {
-		.subheading {
-		  font-size: 1rem;
-		  font-weight: 500;
-		  font-family: var(--font-mono);
-		  color: var(--neutral-600);
-		}
-		h1 {
-			font-size: 3rem;
-			font-weight: 400;
-			margin-top: 0.5rem;
-			font-family: var(--font-serif);
-			span {
-				color: var(--terracotta-500);
-				font-style: italic;
+  main {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 80px);
+    padding: 1.5rem 1rem;
+    font-family: var(--font-sans);
+
+    .welcome-text {
+      .subheading {
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: var(--font-mono);
+        color: var(--neutral-600);
+      }
+      h1 {
+        font-size: 3rem;
+        font-weight: 400;
+        margin-top: 0.5rem;
+        font-family: var(--font-serif);
+        span {
+          color: var(--terracotta-500);
+          font-style: italic;
+        }
+      }
+    }
+
+    .main-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      button {
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-width: 2px;
+        border-style: solid;
+      }
+
+      .print-receipt {
+        color: var(--neutral-700);
+        border-color: var(--neutral-200);
+      }
+
+      .add-to-calendar {
+        background-color: var(--neutral-900);
+        color: var(--neutral-100);
+      }
+    }
+
+    .welcome-and-receipt {
+
+		.cards {
+
+			@include bp.desktop {
+				display: flex;
 			}
 		}
-	}
 
-	.main-buttons {
-		display: flex;
-		gap: 1rem;
-		margin-top: 1rem;
-		flex-wrap: wrap;
-		button {
-			padding: 0.75rem 2rem;
-			border-radius: 50px;
-			font-size: 1rem;
-			font-weight: 600;
-			border-width: 2px;
-			border-style: solid;
+		.hover-message {
+			display: none;
+
+			@include bp.desktop {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 0.5rem;
+				margin-top: 1.5rem;
+				font-family: var(--font-mono);
+				font-size: 0.85rem;
+				color: var(--neutral-600);
+			}
 		}
 
-		.print-receipt {
-			color: var(--neutral-700);
-			border-color: var(--neutral-200);
-		}
+      @include bp.desktop {
+        margin-top: 2rem;
+      }
+    }
 
-		.add-to-calendar {
-			background-color: var(--neutral-900);
-			color: var(--neutral-100);
-		}
-	}
+    .amenities-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.5rem;
 
-	.amenities-list {
-		display: grid;
-		gap: 1rem;
-		margin-top: 1.5rem;
-	}
-}
+      @include bp.desktop {
+        margin-top: 4.5rem;
+      }
+    }
+
+    @include bp.desktop {
+      padding: 1.25rem 1.8rem 2rem 10rem;
+
+      .welcome-text {
+        display: inline-block;
+      }
+
+      .main-buttons {
+        margin-top: 0;
+        justify-content: flex-end;
+      }
+
+      .amenities-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
 </style>
