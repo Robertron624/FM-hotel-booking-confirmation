@@ -41,8 +41,10 @@ const accentColor = `var(--${iconBackgroundAccent})`;
 						<span class="amenities-card__list-label">{item.label}</span>
 						<span class="amenities-card__list-value-wrap">
 							<span class="amenities-card__list-value">{item.value}</span>
-							{item.actionText && (
-								<span class="amenities-card__list-action">{item.actionText}</span>
+							{item.actionText && ( 
+								<button class="amenities-card__list-action" aria-label={item.actionText}>
+									<span class="amenities-card__list-action-text">{item.actionText}</span>
+								</button>
 							)}
 						</span>
 					</li>
@@ -186,6 +188,11 @@ const accentColor = `var(--${iconBackgroundAccent})`;
 		background: var(--neutral-100);
 		padding: 0.2rem 0.42rem;
 		white-space: nowrap;
+		transition: background 0.2s ease, color 0.2s ease;
+
+		&:hover {
+			background: var(--neutral-200);
+		}
 	}
 
 	@media (max-width: 420px) {

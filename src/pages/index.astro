@@ -78,16 +78,25 @@ import { amenitiesData } from "../amenitiesData";
         font-weight: 600;
         border-width: 2px;
         border-style: solid;
+        transition: background-color 0.5s ease, color 0.5s ease;
       }
 
       .print-receipt {
         color: var(--neutral-700);
         border-color: var(--neutral-200);
+
+        &:hover {
+          background-color: var(--neutral-200);
+        }
       }
 
       .add-to-calendar {
         background-color: var(--neutral-900);
         color: var(--neutral-100);
+
+        &:hover {
+          background-color: var(--neutral-700);
+        }
       }
     }
 
