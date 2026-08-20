@@ -39,10 +39,10 @@ import { amenitiesData } from "../amenitiesData";
 <style lang="scss">
   @use "../styles/breakpoints" as bp;
 
-  button,
-  a  {
-    &:hover {
-      outline: 1px solid var(--terracotta-500);
+  :global(button),
+  :global(a)  {
+    &:focus-visible {
+      outline: 2px solid var(--terracotta-500);
     }
   }
 
